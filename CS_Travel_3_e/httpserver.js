@@ -12,13 +12,16 @@ var config = {
 
 /* Simply creates file message.txt and fills it with the given text ******************
 
+ * Alternatively, use appendFile, which does the same, but also appends any new text to the end of the file
+ * if it exists already.
 
+	//fs.appendFile('message.txt', 'Just now, we have created this file', function (err) {
  	fs.writeFile('message.txt', 'Just now, we have created this file', function (err) {
     if (err) throw err;
     console.log('It\'s saved! in same location.');
 });
 
-**************************************************************************************/
+//**************************************************************************************/
 
 //create a server
 http.createServer(processRequestRoute).listen(config.port);
