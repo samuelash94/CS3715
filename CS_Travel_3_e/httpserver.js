@@ -10,8 +10,17 @@ var config = {
     srcpath: '/src'
 };
 
+/* Simply creates file message.txt and fills it with the given text ******************
 
-//creat a server
+
+ 	fs.writeFile('message.txt', 'Just now, we have created this file', function (err) {
+    if (err) throw err;
+    console.log('It\'s saved! in same location.');
+});
+
+**************************************************************************************/
+
+//create a server
 http.createServer(processRequestRoute).listen(config.port);
 console.log("Server has started. port:"+config.port);
 
