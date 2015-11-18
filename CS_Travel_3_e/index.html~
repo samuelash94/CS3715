@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+<title>Great Escapes</title>
+	<link type="text/css" rel="stylesheet" href="index-mobile.css" media="screen and (max-device-width: 800px)" href="800.css" />
+	<link type="text/css" rel="stylesheet" href="index.css" media="screen and (min-device-width: 801px)" href="800.css" />
+
+</head>
+
+<body>
+<header><div id="header-left"><h1 id="top">Great <em>E</em>scapes</h1>
+<p>
+Welcome to CS3715 Group E's travel website, Great Escapes. Below you will find exclusive 
+exotic travel destinations. Click on any available trip to view more details, and to view 
+available tours with each trip, and customer feedback about each trip/tour package.
+</p>
+</div>
+
+<div id="header-right">
+<p>230 Elizabeth Ave, St. John's, NL A1B 3X9<br>
++1(709)310-3030
+</p>
+</div></header>
+
+<ul style="margin-left: -40px;">
+<div class="sidebar"><h2 id="deals">November Deals and Discounts</h2>
+<li><h3>Barcelona 15% Off!</h3></li>
+
+	<div id="sidepic1"></div>
+	
+	<p>From now until December 1st, book any tour or combination of tours to Barcelona, Spain
+	and receive 15% off your trip!</p>
+<li><h3>Tour A, Kuala Lumpur 25% Off!</h3></li>
+
+	<div id="sidepic2"></div>
+	
+	<p>From now until December 6th, include Kuala Lumpur Tour A, the Petronas Towers, on your trip
+	and receive 25% off original tour price!</p>
+<li><h3>NYC 20% Off!</h3></li>	
+	
+	<div id="sidepic3"></div>
+	
+	<p>From now until December 1st, book any tour or combination of tours to New York City, New York, USA
+	and receive 40% off original tour price!</p>
+</div></ul>
+
+<ul style="margin-left: -40px;">
+<span class="itinerary"><li><h2 id="barbados">The Island of Barbados</h2></li>
+
+	<a target="_blank" href="images/barbados.jpg" title="Beautiful Beaches of Barbados" id="barbadospic"></a>
+
+	<div class="info"><p>Visit beautiful Barbados, with its hot beaches, palm trees, and crystal clear water.</p>
+	<p><a href="destinations/barbados.html">More Details...</a></p>
+	<p>Booking available soon!</p></div>
+</span>
+
+<span class="itinerary"><li><h2 id="barcelona">Barcelona, Spain</h2></li>
+
+	<a target="_blank" href="images/barcelona2.jpg" title="Port of Barcelona" id="barcelonapic"></a>
+
+	<div class="info"><p>Si. We've got the trip to Barcelona you've always wanted.</p>
+	<p><a href="destinations/barcelona.html">More Details...</a></p>
+	<p>Booking available soon!</p></div>
+</span>
+	
+<span class="itinerary"><li><h2 id="kualalumpur">Kuala Lumpur, Malaysia</h2></li>
+
+	<a target="_blank" href="images/kualalumpur.jpg" title="Lord Murugan and Batu Caves" id="klpic"></a>
+
+	<div class="info"><p>A city with a beautiful mix of traditional and modern style.</p>
+	<p><a href="destinations/kualalumpur.html">More Details...</a></p>
+	<p>Booking available soon!</p></div>
+</span>
+
+<span class="itinerary"><li><h2 id="nyc">New York City, USA</h2></li>
+
+	<a target="_blank" href="images/nyc2.jpg" title="NYC and the Statue of Liberty" id="nycpic"></a>
+
+	<div class="info"><p>The largest city in America. Times Square, Broadway, and so much more await you.</p>
+	<p><a href="destinations/nyc.html">More Details...</a></p>
+	<p>Booking available soon!</p></div>
+</span>
+</ul>
+<br>
+<footer><p>Contact: service@greatescapes.com. Copyright 2015 Great Escapes Ltd. All rights reserved.</p>
+<br>
+<p><a href="index.html#top">Back to Top</a></p>
+</footer>
+</body>
+</html>

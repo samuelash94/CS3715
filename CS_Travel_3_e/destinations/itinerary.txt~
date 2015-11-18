@@ -1,0 +1,294 @@
+window.onload = init;
+function init(){
+    var reviewArray = getReviewArray();
+    var responseArray = getResponseArray();
+    var deletedCommentArray = getDeletedCommentArray();
+    for (var i = 0; i < reviewArray.length; i++){
+    	var key = reviewArray[i];
+    	var value = localStorage[key];
+    	addReviewToDOM(value);
+    }
+    for (var i = 0; i < responseArray.length; i++){
+    	var key = responseArray[i];
+    	var value = localStorage[key];
+    	addResponseToDOM(value);
+    }
+    for (var i = 0; i < deletedCommentArray.length; i++){
+    	var key = deletedCommentArray[i];
+    	var value = localStorage[key];
+    	addDeletedCommentToDOM(value);
+    }
+    document.getElementById('identity').onchange = function() {
+    	var i = 1;
+    	var myDiv = document.getElementById("inputtype" + i);
+    	while(myDiv) {
+        	myDiv.style.display = 'none';
+        	myDiv = document.getElementById("inputtype" + ++i);
+    	}
+    	document.getElementById(this.value).style.display = 'block';
+    	var button1 = document.getElementById("button1");
+    	var button2 = document.getElementById("button2");
+ 	}
+}
+function getReviewArray(value){
+    var reviewArray = localStorage.getItem("reviewArray");
+    if (!reviewArray){
+    	reviewArray = [];
+    	localStorage.setItem("reviewArray", JSON.stringify(reviewArray));
+    }else{
+    	reviewArray = JSON.parse(reviewArray);
+    }
+    return reviewArray;
+}
+function addReviewToDOM(value){
+	var reviews = document.getElementById("reviews");
+	var temp = document.createElement("div");
+	temp.innerHTML = value;
+	temp.setAttribute("class","review");
+	reviews.insertBefore(temp, reviews.firstChild);
+}
+function getResponseArray(value){
+    var responseArray = localStorage.getItem("responseArray");
+    if (!responseArray){
+    	responseArray = [];
+    	localStorage.setItem("responseArray", JSON.stringify(responseArray));
+    }else{
+    	responseArray = JSON.parse(responseArray);
+    }
+    return responseArray;
+}
+function addResponseToDOM(value){
+	var reviews = document.getElementById("reviews");
+	var temp = document.createElement("div");
+	temp.innerHTML = value;
+	temp.setAttribute("class","response");
+	reviews.insertBefore(temp, reviews.firstChild);
+}
+function getDeletedCommentArray(value){
+    var deletedCommentArray = localStorage.getItem("deletedCommentArray");
+    if (!deletedCommentArray){
+    	deletedCommentArray = [];
+    	localStorage.setItem("deletedCommentArray", JSON.stringify(deletedCommentArray));
+    }else{
+    	deletedCommentArray = JSON.parse(deletedCommentArray);
+    }
+    return deletedCommentArray;
+}
+function addDeletedCommentToDOM(value){
+	var deletedArea = document.getElementById("deletedcomments");
+	deletedArea.style.display = 'block';
+	var deletedComment = document.createElement("div");
+	deletedComment.innerHTML = value;
+	deletedArea.insertBefore(deletedComment, deletedArea.firstChild);
+}
+var commentTitleInput;
+var commentTitle;
+var customerNameInput;
+var customerName;
+var ratingInput;
+var rating;
+var reviewInput;
+var review;
+var managerReviewInput;
+var managerReview;
+var map;
+function getMyLocation(){
+	if (navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(displayLocation, displayError);
+	}else{
+		alert("Oops, no geolocation support.");
+	}
+}
+function displayLocation(position){
+	var latitude = position.coords.latitude;
+	var longitude = position.coords.longitude;
+	
+	//var div = document.getElementById("map");
+	//div.innerHTML = "You are at Latitude: " + latitude + ", Longitude: " + longitude;
+	
+	showMap(position.coords);
+}
+function displayError(error){
+	var errorTypes = {
+			0: "Unknown error",
+			1: "Permission denied by user",
+			2: "Position is not available",
+			3: "Request timed out"
+		};
+	var errorMessage = errorTypes[error.code];
+	if (error.code == 0 || error.code == 2){
+		errorMessage = errorMessage + " " + error.message;
+	}
+	var div = document.getElementById("location1");
+	div.innerHTML = errorMessage;
+}
+var map;
+function showMap(coords){
+	var googleLatAndLong = new google.maps.LatLng(coords.latitude, coords.longitude);
+	
+	var mapOptions = {
+		zoom: 10,
+		center: googleLatAndLong,
+		mapTypeID: google.maps.MapTypeID.ROADMAP
+	};
+	var mapDiv = document.getElementById("map");
+	window.map = new google.maps.Map(mapDiv, mapOptions);
+}
+function handleTravellerPost(){
+	window.commentTitleInput = document.getElementById("title");
+	window.commentTitle = window.commentTitleInput.value;
+	if (window.commentTitle == "" || window.commentTitle == null){
+		alert("Comment title is required");
+		return;
+	}
+	window.customerNameInput = document.getElementById("username");
+	window.customerName = window.customerNameInput.value;
+	if (window.customerName == "" || window.customerName == null){
+		alert("Name (anonymous or otherwise) is required");
+		return;
+	}
+	window.ratingInput = document.getElementById("rating");
+	window.rating = window.ratingInput.value;
+	if (window.rating == "" || window.rating == null){
+		alert("Trip rating (1-5) is required");
+		return;
+	}else if (window.rating < 1 || window.rating > 5){
+		alert("Invalid rating. Must be from 1-5.");
+		return;
+	}
+	window.reviewInput = document.getElementById("reviewtext");
+	window.review = window.reviewInput.value;
+	if (window.review == "" || window.review == null){
+		alert("Review (short or long) is required");
+		return;
+	}
+	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1;
+	var yyyy = today.getFullYear();
+
+	if (mm == 1){
+		mm = "January";		
+	}else if (mm == 2){
+		mm = "February";
+	}else if (mm == 3){
+		mm = "March";
+	}else if (mm == 4){
+		mm = "April";
+	}else if (mm == 5){
+		mm = "May";
+	}else if (mm == 6){
+		mm = "June";
+	}else if (mm == 7){
+		mm = "July";
+	}else if (mm == 8){
+		mm = "August";
+	}else if (mm == 9){
+		mm = "September";
+	}else if (mm == 10){
+		mm = "October";
+	}else if (mm == 11){
+		mm = "November";
+	}else if (mm == 12){
+		mm = "December";
+	}
+
+	today = mm+' '+dd+', '+yyyy;
+	
+	var newReview = document.createElement("div");
+	
+	newReview.innerHTML = "<b><p><q>" + window.commentTitle + "</b></p></q>";
+	
+	newReview.innerHTML += "<font size = '2'><p>by " + window.customerName + ", Written " + today + "</p></font>";
+
+	newReview.innerHTML += "<p> <b>Rating:</b> " + window.rating + "/5 </p>";
+"Test"
+	newReview.innerHTML += "<p>" + window.review + "</p>";
+	
+	var rev = window.review;
+	var reviewArray = getReviewArray();
+	var key = "review_" + reviewArray.length;
+	
+	newReview.innerHTML += "<form><input type='button' id='" + key + "' onclick='handleDeleteTraveller(this.id, " + JSON.stringify(rev) + ");' value='Delete'></form>";
+	
+	newReview.innerHTML += "<div id='map'></div>";
+	
+	getMyLocation();
+	
+	localStorage.setItem(key, newReview.innerHTML);
+	reviewArray.push(key);
+	localStorage.setItem("reviewArray", JSON.stringify(reviewArray));
+	addReviewToDOM(newReview.innerHTML);
+}
+function handleManagerPost(){
+	window.managerReviewInput = document.getElementById("managerreview");
+	window.managerReview = window.managerReviewInput.value;
+	
+	var newResponse = document.createElement("div");
+	
+	newResponse.innerHTML = "<p><em>" + window.managerReview + "</em> -Great Escapes Crew</p>";
+	
+	var resp = window.managerReview;
+	var responseArray = getResponseArray();
+	var key = "response_" + responseArray.length;
+	
+	newResponse.innerHTML += "<form><input type='button' id='" + key + "' onclick='handleDeleteManager(this.id, " + JSON.stringify(resp) + ");' value='Delete'></form>";	
+	
+	localStorage.setItem(key, newResponse.innerHTML);
+	responseArray.push(key);
+	localStorage.setItem("responseArray", JSON.stringify(responseArray));
+	addResponseToDOM(newResponse.innerHTML);
+}
+function handleDeleteTraveller(key, rev){
+	alert("Traveller's comment deleted!");
+	localStorage.removeItem(key);
+	var reviewArray = getReviewArray();
+	if (reviewArray){
+   	for (var i = 0; i < reviewArray.length; i++){
+    		if (key == reviewArray[i]){
+    			reviewArray.splice(i,1);
+    		}
+   	}
+   }
+   localStorage.setItem("reviewArray", JSON.stringify(reviewArray));
+   var deletedComment = document.createElement("div");
+	deletedComment.innerHTML = rev + "<br>";
+   	
+   var deletedCommentArray = getDeletedCommentArray();
+   var newkey = "deleted_" + deletedCommentArray.length;
+   localStorage.setItem(newkey, deletedComment.innerHTML);
+   deletedCommentArray.push(newkey);
+   localStorage.setItem("deletedCommentArray", JSON.stringify(deletedCommentArray));
+   addDeletedCommentToDOM(deletedComment.innerHTML);
+	
+	//http://stackoverflow.com/questions/4825295/javascript-onclick-to-get-the-id-of-the-clicked-button
+	
+	/*deletedComment.innerHTML = rev + "<br>";
+	deletedArea.insertBefore(deletedComment, deletedArea.firstChild);*/
+}
+function handleDeleteManager(key, resp){
+	alert("Manager's comment deleted!");
+	localStorage.removeItem(key);
+	var responseArray = getResponseArray();
+	if (responseArray){
+   	for (var i = 0; i < responseArray.length; i++){
+    		if (key == responseArray[i]){
+    			responseArray.splice(i,1);
+    		}
+   	}
+   }
+   localStorage.setItem("responseArray", JSON.stringify(responseArray));
+   var deletedComment = document.createElement("div");
+	deletedComment.innerHTML = resp + "<br>";
+   	
+   var deletedCommentArray = getDeletedCommentArray();
+   var newkey = "deleted_" + deletedCommentArray.length;
+   localStorage.setItem(newkey, deletedComment.innerHTML);
+   deletedCommentArray.push(newkey);
+   localStorage.setItem("deletedCommentArray", JSON.stringify(deletedCommentArray));
+   addDeletedCommentToDOM(deletedComment.innerHTML);
+}
+function clearLocalStorage(){
+	localStorage.clear();
+}

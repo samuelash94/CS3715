@@ -1,0 +1,8 @@
+div.newreview{
+	display: block;
+	float: left;
+	margin: auto;
+	}
+div{
+	display: none;	
+	}
