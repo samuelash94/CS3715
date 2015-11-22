@@ -10,17 +10,18 @@ var config = {
     srcpath: '/src'
 };
 
-/* Simply creates file message.txt and fills it with the given text ******************
- * Alternatively, use appendFile, which does the same, but also appends any new text to the end of the file
- * if it exists already.
-	//fs.appendFile('message.txt', 'Just now, we have created this file', function (err) {
- 	fs.writeFile('message.txt', 'Just now, we have created this file', function (err) {
-    if (err) throw err;
-    console.log('It\'s saved! in same location.');
+/* Creates file message.txt and fills it with the given text ******************
+//* Alternatively, use appendFile, which does the same, but also appends any new text to the end of the file
+//* if it exists already.
+
+//fs.appendFile('message.txt', 'Just now, we have created this file', function (err) {
+ fs.writeFile('message.txt', 'Just now, we have created this file', function (err) {
+ if (err) throw err;
+ console.log('It\'s saved! in same location.');
 });
 //**************************************************************************************/
 
-//create a server
+/* Opens terminal, creates file message.txt and fills it with the input text from terminal *****
 
 var readline = require('readline'),
 rl = readline.createInterface(process.stdin, process.stdout);
@@ -42,7 +43,9 @@ rl.prompt();
 console.log('Have a great day!');
 process.exit(0);
 });
+//**************************************************************************************/
 
+//create a server
 
 http.createServer(processRequestRoute).listen(config.port);
 console.log("Server has started. port:"+config.port);
