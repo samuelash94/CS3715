@@ -84,14 +84,6 @@ function addDeletedCommentToDOM(value){
 	deletedArea.insertBefore(deletedComment, deletedArea.firstChild);
 }
 
-
-
-
-
-
-
-
-
 function initMap(){
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 43.652414, lng: -79.379260},
@@ -123,15 +115,6 @@ function initMap(){
 function handleLocationError(browserHasGeolocation, marker, pos) {
   marker.setPosition(pos);
 }
-
-
-
-
-
-
-
-
-
 var commentTitleInput;
 var commentTitle;
 var customerNameInput;

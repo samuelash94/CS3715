@@ -2,6 +2,8 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
+//var temp = require('./destinations/fileWriting.js').handleTravellerPost1();
+//the above line will automatically execute handleTravellerPost1 from fileWriting
 
 //config
 var config = {
@@ -10,12 +12,12 @@ var config = {
     srcpath: '/src'
 };
 
-/* Creates file message.txt and fills it with the given text ******************
+//* Creates file message.txt and fills it with the given text ******************
 //* Alternatively, use appendFile, which does the same, but also appends any new text to the end of the file
 //* if it exists already.
 
 //fs.appendFile('message.txt', 'Just now, we have created this file', function (err) {
- fs.writeFile('message.txt', 'Just now, we have created this file', function (err) {
+ fs.writeFile('message1.txt', 'Just now, we have created this file', function (err) {
  if (err) throw err;
  console.log('It\'s saved! in same location.');
 });
