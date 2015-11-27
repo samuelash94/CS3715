@@ -2,8 +2,21 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
+var splitter = require('./splitter.js');
 //var temp = require('./destinations/fileWriting.js').handleTravellerPost1();
 //the above line will automatically execute handleTravellerPost1 from fileWriting
+
+
+var postHTML =
+	  '<html><head><title>Post Example</title></head>' +
+	  '<body>' +
+	  '<form method="post">' +
+	  'Your Fist Name: <input name="first_name"><br>' +
+	  'Your Last Name: <input name="last_name"><br>' +
+	  '<input type="submit">' +
+	  '</form>' +
+	  '</body></html>';
+
 
 //config
 var config = {
@@ -12,41 +25,6 @@ var config = {
     srcpath: '/src'
 };
 
-//* Creates file message.txt and fills it with the given text ******************
-//* Alternatively, use appendFile, which does the same, but also appends any new text to the end of the file
-//* if it exists already.
-
-//fs.appendFile('message.txt', 'Just now, we have created this file', function (err) {
- fs.writeFile('message1.txt', 'Just now, we have created this file', function (err) {
- if (err) throw err;
- console.log('It\'s saved! in same location.');
-});
-//**************************************************************************************/
-
-/* Opens terminal, creates file message.txt and fills it with the input text from terminal *****
-
-var readline = require('readline'),
-rl = readline.createInterface(process.stdin, process.stdout);
-
-rl.setPrompt('');
-rl.prompt();
-
-rl.on('line', function(line) {
-switch(line.trim()) {
-default:
-fs.writeFile('message.txt', line.trim(), function (err) {
-	  if (err) throw err;
-	  console.log('It\'s saved!');
-	});
-  break;
-}
-rl.prompt();
-}).on('close', function() {
-console.log('Have a great day!');
-process.exit(0);
-});
-//**************************************************************************************/
-
 //create a server
 
 http.createServer(processRequestRoute).listen(config.port);
@@ -54,6 +32,36 @@ console.log("Server has started. port:"+config.port);
 
 //router URL
 function processRequestRoute(request, response) {
+	
+	/*var body = "";
+	  request.on('data', function (chunk) {
+	    body += chunk;
+	  });
+	  request.on('end', function () {
+	    console.log('POSTed: ' + body);
+	 
+	    if (body != '')
+	    {
+	        var hash = splitter.formValues(body);
+	 
+	         console.log("input1 = " + hash["first_name"]);
+	         console.log("input2 = " + hash["last_name"]);
+	 
+	         response.writeHead(200);
+	         response.write('Hello ' + hash["first_name"] + ', ' + hash["last_name"] + '!');
+	         var testHTML = "Testing, " + hash["first_name"] + ", " + hash["last_name"] + ".";
+	         fs.appendFile('log.txt', testHTML, function (err) {
+		    	  if (err) throw err;
+		    	  console.log('It\'s saved!');
+		    	});
+	         response.end();
+	         return;
+	    }
+	    
+	    response.writeHead(200);
+	    response.end(postHTML);
+	  });*/
+	    
     var pathname = url.parse(request.url).pathname;
     if (pathname === '/') {
         pathname = "/index.html"; //default page
