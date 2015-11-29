@@ -45,25 +45,49 @@ function processFormFieldsIndividual(req, res) {
     //Store the data from the fields in your data store.
     //The data store could be a file or database or any other store based
     //on your application.
-    var fields = [];
+    var fields = {};
+    var a;
     var form = new formidable.IncomingForm();
+    /*fs.appendFile("test.JSON", "}]", function(err){
+        	if(err) throw err;
+        });*/
     form.on('field', function (field, value) {
         console.log(field);
         console.log(value);
         fields[field] = value;
+        /*fs.appendFile("test.JSON", "\"" + field + "\":\"" + value + "\",", function(err){
+        	if(err) throw err;
+        */
     });
+    /*fs.appendFile("test.JSON", "[{", function(err){
+    	if(err) throw err;
+    });*/
 
     form.on('end', function () {
-        res.writeHead(200, {
-            'content-type': 'text/plain'
+        a = JSON.stringify(fields);
+     // First I want to read the file
+     fs.readFile('test.JSON', 'utf8', function read(err, data) {
+         if (err) {
+             throw err;
+         }
+         var content = data;
+
+         console.log(content);
+         content = content.replace('[','');
+         content = content.replace(']','');
+         console.log(content);
+         content += ",\n" + a;
+      	 content = "[" + content + "]";
+      	 a = content;
+     });
+     	
+        
+        fs.writeFile("test.JSON", a, function(err){
+        	if(err) throw err;
         });
-        res.write('received the data:\n\n');
-        res.end(util.inspect({
-            fields: fields
-        }));
     });
     form.parse(req);
 }
 
-server.listen(1185);
-console.log("server listening on 1185 for your information");
+server.listen(8081);
+console.log("server listening on 8081 for your information");

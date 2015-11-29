@@ -1,6 +1,8 @@
+<!doctype html>
 <html>
+<head><meta charset="utf-8"></head>
    <body>
-      <form action="" method="post" enctype="multipart/form-data">
+      <form action="" method="POST" enctype="multipart/form-data">
          <fieldset>
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" placeholder="Enter your full name" />
@@ -11,8 +13,14 @@
             <label for="description">Description:</label>
             <textarea id="description" name="description" placeholder="Enter a short description about yourself"></textarea>
             <br />
+            <label for="profilepic">Profile Pic:</label>
+            <input type="file" id="profilepic" name="profilepic" />
+            <br />
             <input type="submit" value="Create Profile" />
          </fieldset>
       </form>
+      <div id="newReviews">
+      </div>
+      <script type="text/javascript" src="testing.js"></script>
    </body>
 </html>
