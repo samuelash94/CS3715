@@ -47,6 +47,7 @@ function processFormFieldsIndividual(req, res) {
     //on your application.
     var fields = {};
     var a;
+    var b;
     var form = new formidable.IncomingForm();
     /*fs.appendFile("test.JSON", "}]", function(err){
         	if(err) throw err;
@@ -65,7 +66,8 @@ function processFormFieldsIndividual(req, res) {
 
     form.on('end', function () {
         a = JSON.stringify(fields);
-     // First I want to read the file
+        console.log(a);
+     // Take the JSON file, make it into an object, and then change the object and write the file.
      fs.readFile('test.JSON', 'utf8', function read(err, data) {
          if (err) {
              throw err;
@@ -78,13 +80,15 @@ function processFormFieldsIndividual(req, res) {
          console.log(content);
          content += ",\n" + a;
       	 content = "[" + content + "]";
-      	 a = content;
-     });
-     	
-        
-        fs.writeFile("test.JSON", a, function(err){
+      	 console.log(content);
+      	 b = content;
+      	 console.log(b);
+      	fs.writeFile("test.JSON", b, function(err){
         	if(err) throw err;
         });
+
+     });
+     	
     });
     form.parse(req);
 }
