@@ -15,14 +15,16 @@ var config = {
 //create a server
 
 //http.createServer(processRequestRoute).listen(config.port);
-var server = http.createServer(function (req, res) {
+var server = http.createServer(processRequestRoute).listen(config.port);
+
+function formWriting(req, res){
     if (req.method.toLowerCase() == 'get') {
         displayForm(res);
     } else if (req.method.toLowerCase() == 'post') {
         //processAllFieldsOfTheForm(req, res);
         processFormFieldsIndividual(req, res);
     }
-}).listen(config.port);
+}
 console.log("Server has started. port:"+config.port);
 
 function displayForm(res) {
@@ -43,10 +45,10 @@ function processAllFieldsOfTheForm(req, res) {
         //Store the data from the fields in your data store.
         //The data store could be a file or database or any other store based
         //on your application.
-        res.writeHead(200, {
+        /*res.writeHead(200, {
             'content-type': 'text/plain'
         });
-        res.write('received the data:\n\n');
+        res.write('received the data:\n\n');*/
         res.end(util.inspect({
             fields: fields,
             files: files
@@ -108,7 +110,7 @@ function processFormFieldsIndividual(req, res) {
 
 //router URL
 function processRequestRoute(request, response) {
-	    
+	
     var pathname = url.parse(request.url).pathname;
     if (pathname === '/') {
         pathname = "/index.html"; //default page

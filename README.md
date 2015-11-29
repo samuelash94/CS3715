@@ -1,3 +1,20 @@
-# CS3715
 
-This is a repository created for use with our CS3715 project at Memorial University of Newfoundland. Created November 16, 2015.
+
+# trying
+
+
+
+## Usage
+
+
+
+## Developing
+
+
+
+### Tools
+
+Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)
+ ([Eclipse Marketplace](http://marketplace.eclipse.org/content/nodeclipse), [site](http://www.nodeclipse.org))   
+
+Nodeclipse is free open-source project that grows with your contributions.

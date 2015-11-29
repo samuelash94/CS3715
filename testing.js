@@ -1,5 +1,5 @@
 window.onload = function(){
-
+	
 	var url = "http://localhost:8081/test.JSON";
 	var request = new XMLHttpRequest();
 
@@ -14,7 +14,7 @@ window.onload = function(){
 }
 
 function postComment(responseText){
-
+	
 	var newReviews = document.getElementById("newReviews");
 	var reviews = JSON.parse(responseText);
 	for (var i=0; i<reviews.length; i++){
