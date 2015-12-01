@@ -211,14 +211,21 @@ little in the way of entertainment out there, think Comiskey Park not Wrigley Fi
 <option value="inputtype1">Traveller</option>
 <option value="inputtype2">Manager</option>
 </select>
-<div id="inputtype1"><form>
+
+<form action="" method="POST" enctype="multipart/form-data">
+
+<div id="inputtype1">
 <h3>Leave a comment about your stay!</h3>
-Title: <input type="text" id="title"><br>
-Name: <input type="text" id="username"><br>
-Rating (1-5): <input type="number" id="rating" min="1" max="5"><br>
-<textarea rows="5" cols="60" id="reviewtext" placeholder="Detailed description..."></textarea><br>
-<input type="button" id="button1" onclick="handleTravellerPost();" value="Submit">
+<fieldset>
+<label for="title">Title:</label> <input type="text" name="title" id="title"><br>
+<label for="username">Name:</label> <input type="text" name="username" id="username"><br>
+<label for="rating">Rating (1-5):</label> <input type="number" name="rating" id="rating" min="1" max="5"><br>
+<textarea rows="5" cols="60" name="reviewtext" id="reviewtext" placeholder="Detailed description..."></textarea><br>
+<input type="submit" id="button1" value="Submit">
+</fieldset>
+
 </form></div>
+
 <div id="inputtype2"><form>
 <textarea rows="5" cols="60" id="managerreview" placeholder="Respond to customer..."></textarea><br>
 <input type="button" id="button2" onclick="handleManagerPost();" value="Submit">
@@ -231,9 +238,9 @@ Rating (1-5): <input type="number" id="rating" min="1" max="5"><br>
 
 <footer><p>Contact: service@greatescapes.com. Copyright 2015 Great Escapes Ltd. All rights reserved.</p>
 <br>
-<p><a href="../index.html#barcelona">Back to Homepage</a></p>
+<p><a href="../index.html#barbados">Back to Homepage</a></p>
 </footer>
-<script type="text/javascript" src="itinerary.js"></script>
+<script type="text/javascript" src="./testing.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUg4jGN3V67075EkIfrMCM11l7YkJWND0&signed_in=true&callback=initMap">
     </script>
 </body>

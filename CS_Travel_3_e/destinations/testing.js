@@ -13,7 +13,7 @@ window.onload = function(){
 	}
 	var url = "";
 	if (window.location.pathname == "/destinations/barbados.html"){
-		url = "barbados.JSON";
+		url = "test.JSON";
 	}else if (window.location.pathname == "/destinations/barcelona.html"){
 		url = "barcelona.JSON";
 	}else if (window.location.pathname == "/destinations/kualalumpur.html"){
@@ -79,7 +79,7 @@ function postComment(responseText){
 		div.innerHTML += "<font size = '2'><p>by " + review.username + ", Written " + today + "</p></font>";
 
 		div.innerHTML += "<p> <b>Rating:</b> " + review.rating + "/5 </p>";
-	"Test"
+		
 		div.innerHTML += "<p>" + review.reviewtext + "</p>";
 		
 		div.innerHTML += "<div id='map'></div>";
@@ -90,6 +90,7 @@ function postComment(responseText){
 		div.innerHTML += "<form><input type='button' id='" + key + "' onclick='handleDeleteTraveller(this.id, " + JSON.stringify(rev) + ");' value='Delete'></form>";
 		
 		newReviews.insertBefore(div, newReviews.firstChild);
+		
 		initMap();
 	}
 }

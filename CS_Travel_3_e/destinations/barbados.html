@@ -192,7 +192,7 @@ the sea weed (However, the seaweed is seasonal) </p></div>
 <option value="inputtype2">Manager</option>
 </select>
 
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="" method="POST" enctype="application/x-www-form-urlencoded">
 
 <div id="inputtype1">
 <h3>Leave a comment about your stay!</h3>
@@ -202,11 +202,12 @@ the sea weed (However, the seaweed is seasonal) </p></div>
 <label for="rating">Rating (1-5):</label> <input type="number" name="rating" id="rating" min="1" max="5"><br>
 <textarea rows="5" cols="60" name="reviewtext" id="reviewtext" placeholder="Detailed description..."></textarea><br>
 <input type="submit" id="button1" value="Submit">
-</fieldset>
+</fieldset></div>
 
 </form></div>
 
-<div id="inputtype2"><form>
+<form>
+<div id="inputtype2">
 <textarea rows="5" cols="60" id="managerreview" placeholder="Respond to customer..."></textarea><br>
 <input type="button" id="button2" onclick="handleManagerPost();" value="Submit">
 </form></div>
