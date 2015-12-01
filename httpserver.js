@@ -1,20 +1,21 @@
 var http = require('http');
 var url = require('url');
-var fs = require('fs');
-var path = require('path');
-var formidable = require("formidable");
-var util = require('util');
 var express = require('express');
 var app = express();
 var router = express.Router();
+var fs = require('fs');
+var qs = require('querystring');
+var path = require('path');
+var formidable = require("formidable");
+var util = require('util');
 var routes = require('./routes')
 
-app.use(express.favicon());
+/*app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(app.router);*/
+app.use(express.static(path.join('testing.js', 'public')));
 app.get('/', routes.index);
 
 //handle["/404"] = requestHandlers.error404;
@@ -31,7 +32,8 @@ var config = {
 //var server = http.createServer(processRequestRoute).listen(config.port);
 
 http.createServer(function (req, res){
-	req.setEncoding('utf8');
+	//req.setEncoding('utf8');
+	processRequestRoute(req, res);
     if (req.method.toLowerCase() == 'get') {
         //displayForm(res);
     } else if (req.method.toLowerCase() == 'post') {
@@ -73,6 +75,10 @@ function processAllFieldsOfTheForm(req, res) {
 }
 
 function processFormFieldsIndividual(req, res) {
+	
+	//res.writeHead(200, {"Content-Type": "text/html"});
+	var errorMessage = null;
+
     //Store the data from the fields in your data store.
     //The data store could be a file or database or any other store based
     //on your application.
@@ -101,6 +107,7 @@ function processFormFieldsIndividual(req, res) {
     		console.log("fields is blank");
     		return;
     	}
+        //var query = qs.parse(a);
         console.log(a);
      // Take the JSON file, make it into an object, and then change the object and write the file.
      fs.readFile('test.JSON', 'utf8', function read(err, data) {
@@ -118,14 +125,15 @@ function processFormFieldsIndividual(req, res) {
       	 console.log(content);
       	 b = content;
       	 console.log(b);
-      	fs.writeFile("test.JSON", b, function(err){
+      	 fs.writeFile("test.JSON", b, function(err){
         	if(err) throw err;
         });
 
      });
+     res.end();
      	
     });
-    form.parse(req);
+    if (a != "{}"){ form.parse(req); }
 }
 
 //router URL
@@ -197,7 +205,7 @@ function processRequestRoute(request, response) {
             response.end('404:File Not found');
         }
     });
-    if(ext === '.JSON'){ formWriting(request, response); }
+    if(ext === '.JSON'){ processFormFieldsIndividual(request, response); }
 }
 
 //handle the dynamic resourse
