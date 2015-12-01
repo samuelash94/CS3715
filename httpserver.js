@@ -4,6 +4,20 @@ var fs = require('fs');
 var path = require('path');
 var formidable = require("formidable");
 var util = require('util');
+var express = require('express');
+var app = express();
+var router = express.Router();
+var routes = require('./routes')
+
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', routes.index);
+
+//handle["/404"] = requestHandlers.error404;
 
 //config
 var config = {
@@ -14,20 +28,22 @@ var config = {
 
 //create a server
 
-//http.createServer(processRequestRoute).listen(config.port);
-var server = http.createServer(processRequestRoute).listen(config.port);
+//var server = http.createServer(processRequestRoute).listen(config.port);
 
-function formWriting(req, res){
+http.createServer(function (req, res){
+	req.setEncoding('utf8');
     if (req.method.toLowerCase() == 'get') {
-        displayForm(res);
+        //displayForm(res);
     } else if (req.method.toLowerCase() == 'post') {
         //processAllFieldsOfTheForm(req, res);
         processFormFieldsIndividual(req, res);
     }
-}
+    //processRequestRoute(req, res);
+}).listen(config.port);
+
 console.log("Server has started. port:"+config.port);
 
-function displayForm(res) {
+function displayForm(res){
     fs.readFile('index.html', function (err, data) {
         /*res.writeHead(200, {
             'Content-Type': 'text/html',
@@ -81,6 +97,10 @@ function processFormFieldsIndividual(req, res) {
 
     form.on('end', function () {
         a = JSON.stringify(fields);
+        if (a == "{}"){
+    		console.log("fields is blank");
+    		return;
+    	}
         console.log(a);
      // Take the JSON file, make it into an object, and then change the object and write the file.
      fs.readFile('test.JSON', 'utf8', function read(err, data) {
@@ -116,13 +136,14 @@ function processRequestRoute(request, response) {
         pathname = "/index.html"; //default page
     }
     var ext = path.extname(pathname);
+    var temp;
     var localPath = ''; //local path
     var staticres = false; //statict or not
     if (ext.length > 0) {
         localPath = '.' + pathname;
         staticRes = true;
     } else {
-        localPath = '.' + config.srcpath + pathname + '.js';
+        localPath = '.' + pathname + '.js';
         staticRes = false;
     }
     //do not allow remote access
@@ -176,6 +197,7 @@ function processRequestRoute(request, response) {
             response.end('404:File Not found');
         }
     });
+    if(ext === '.JSON'){ formWriting(request, response); }
 }
 
 //handle the dynamic resourse
