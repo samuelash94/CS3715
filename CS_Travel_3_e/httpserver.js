@@ -15,16 +15,16 @@ var config = {
 //create a server
 
 //http.createServer(processRequestRoute).listen(config.port);
-var server = http.createServer(processRequestRoute).listen(config.port);
-
-function formWriting(req, res){
+var server = http.createServer(function formWriting(req, res){
+	//error is here
+	processRequestRoute(req, res);
     if (req.method.toLowerCase() == 'get') {
         displayForm(res);
     } else if (req.method.toLowerCase() == 'post') {
         //processAllFieldsOfTheForm(req, res);
         processFormFieldsIndividual(req, res);
     }
-}
+}).listen(config.port);
 console.log("Server has started. port:"+config.port);
 
 function displayForm(res) {

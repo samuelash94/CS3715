@@ -11,8 +11,16 @@ window.onload = function(){
     	var button1 = document.getElementById("button1");
     	var button2 = document.getElementById("button2");
 	}
-	alert(window.location.pathname);
-	var url = "test.JSON";
+	var url = "";
+	if (window.location.pathname == "/destinations/barbados.html"){
+		url = "barbados.JSON";
+	}else if (window.location.pathname == "/destinations/barcelona.html"){
+		url = "barcelona.JSON";
+	}else if (window.location.pathname == "/destinations/kualalumpur.html"){
+		url = "kualalumpur.JSON";
+	}else if (window.location.pathname == "/destinations/nyc.html"){
+		url = "nyc.JSON";
+	}
 	var request = new XMLHttpRequest();
 
 	request.onload = function(){
