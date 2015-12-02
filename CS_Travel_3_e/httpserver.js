@@ -8,7 +8,8 @@ var qs = require('querystring');
 var path = require('path');
 var formidable = require("formidable");
 var util = require('util');
-var routes = require('./routes')
+var routes = require('./routes');
+var jsonFile;
 
 /*app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -78,7 +79,13 @@ function processFormFieldsIndividual(req, res) {
 	
 	//res.writeHead(200, {"Content-Type": "text/html"});
 	var errorMessage = null;
-
+	if (url.parse(req.url).pathname === '/destinations/barbados.JSON'){ jsonFile = 'destinations/barbados.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelona.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpur.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nyc.JSON'; }
+	//console.log(jsonFile);
+	
+	console.log(url.parse(req.url).pathname);
     //Store the data from the fields in your data store.
     //The data store could be a file or database or any other store based
     //on your application.
@@ -110,7 +117,7 @@ function processFormFieldsIndividual(req, res) {
         //var query = qs.parse(a);
         console.log(a);
      // Take the JSON file, make it into an object, and then change the object and write the file.
-     fs.readFile('test.JSON', 'utf8', function read(err, data) {
+     fs.readFile(jsonFile, 'utf8', function read(err, data) {
          if (err) {
              throw err;
          }
@@ -125,12 +132,12 @@ function processFormFieldsIndividual(req, res) {
       	 console.log(content);
       	 b = content;
       	 console.log(b);
-      	 fs.writeFile("./destinations/test.JSON", b, function(err){
+      	 fs.writeFile(jsonFile, b, function(err){
         	if(err) throw err;
         });
 
      });
-     res.end();
+     //res.end();
     });
     if (a != "{}"){ form.parse(req); }
 }
