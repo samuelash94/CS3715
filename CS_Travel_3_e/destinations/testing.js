@@ -13,7 +13,7 @@ window.onload = function(){
 	}
 	var url = "";
 	if (window.location.pathname == "/destinations/barbados.html"){
-		url = "test.JSON";
+		url = "barbados.JSON";
 	}else if (window.location.pathname == "/destinations/barcelona.html"){
 		url = "barcelona.JSON";
 	}else if (window.location.pathname == "/destinations/kualalumpur.html"){
