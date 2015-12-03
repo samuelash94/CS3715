@@ -29,6 +29,7 @@ For deleting a comment you have to type in the title of the comment you wish to 
 Deleted comments and responses are completely removed from our webpage.
 
 If you try to run our webpage as your own express project make sure you install all modules listed in package.JSON.
+If you delete the most recent traveller's comment, the responses for that destination will not load into the webpage. This can be remedied by adding a new traveller's comment.
 
 
 Thank you very much.
