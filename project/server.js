@@ -11,38 +11,26 @@ var util = require('util');
 var routes = require('./routes');
 var jsonFile;
 
-/*app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(app.router);*/
 app.use(express.static(path.join('testing.js', 'public')));
 app.get('/', routes.index);
 
-//handle["/404"] = requestHandlers.error404;
-
 //config
 var config = {
-    port: 8081,
-    localIPs: ['127.0.0.1'],
+    port: 3334,
+    //localIPs: ['127.0.0.1'],
     srcpath: '/src'
 };
 
-//create a server
 
 //var server = http.createServer(processRequestRoute).listen(config.port);
 
 http.createServer(function (req, res){
-	//req.setEncoding('utf8');
 	processRequestRoute(req, res);
     if (req.method.toLowerCase() == 'get') {
         displayForm(req, res);
-    	//processAllFieldsOfTheForm(req, res);
     } else if (req.method.toLowerCase() == 'post') {
-        //processAllFieldsOfTheForm(req, res);
         processFormFieldsIndividual(req, res);
     }
-    //processRequestRoute(req, res);
 }).listen(config.port);
 
 console.log("Server has started. port:"+config.port);
@@ -57,17 +45,6 @@ function displayForm(req, res){
 	
 }
 
-function processAllFieldsOfTheForm(req, res) {
-    var form = new formidable.IncomingForm();
-
-    form.parse(req, function (err, fields, files) {
-        res.end(util.inspect({
-            fields: fields,
-            files: files
-        }));
-    });
-}
-
 function processFormFieldsIndividual(req, res) {
 	
 	var errorMessage = null;
@@ -76,10 +53,8 @@ function processFormFieldsIndividual(req, res) {
 	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpur.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nyc.JSON'; }
 	
-	console.log(url.parse(req.url).pathname);
-    //Store the data from the fields in your data store.
-    //The data store could be a file or database or any other store based
-    //on your application.
+	//console.log(url.parse(req.url).pathname);
+	
     var fields = {};
     var a;
     var b;
