@@ -106,7 +106,6 @@ function processFormFieldsIndividual(req, res) {
                 var content = data;
                 content = content.replace('[','');
                 content = content.replace(']','');
-                //content = content.replace('},','}');
                 var reviews = JSON.parse(data);
             	for (var i=0; i<reviews.length; i++){
             		var review = reviews[i];
@@ -137,7 +136,6 @@ function processFormFieldsIndividual(req, res) {
     form.on('end', function () {
         a = JSON.stringify(fields);
         if (a == "{}"){
-    		console.log("fields is blank");
     		return;
     	}
         //var query = qs.parse(a);

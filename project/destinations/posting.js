@@ -55,7 +55,7 @@ function postComment(responseText){
 		for (var i=0; i<infoFields.length; i++){
 			var bookedTrip = infoFields[i];
 			var place = document.createElement("div");
-			place.innerHTML = "<p>" + bookedTrip.fullname + " from " + bookedTrip.city + ", " + bookedTrip.country + " has booked for a trip on Great Escapes. </p>";
+			place.innerHTML = "<p>" + bookedTrip.fullname + " from " + bookedTrip.city + ", " + bookedTrip.country + " has booked for a trip on Great Escapes to " + bookedTrip.destination + " for " + bookedTrip.date + " and will take " + bookedTrip.tour + ".</p>";
 			newForm.insertBefore(place, newForm.firstChild);
 		}
 	}
