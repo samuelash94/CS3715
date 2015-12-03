@@ -12,10 +12,10 @@ img{
 	max-width: 500px;
 	}
 a{
-	color: #98ff98;
+	color: orangered;
 	}
 a:visited {
-	color: yellow;
+	color: #98ff98;
 	}
 header{
 	background-color: #f09314;

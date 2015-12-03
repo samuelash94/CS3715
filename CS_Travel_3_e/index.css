@@ -10,9 +10,10 @@ a{
 	color: orangered;
 	}
 a:visited {
-	color: yellow;
+	color: #98ff98;
 	}
 header{
+	background-color: #f09314;
 	display: inline-block;
 	padding: 0px 20px 20px 20px; 
 	border: 2px solid black;					
@@ -27,6 +28,7 @@ div#header-right{
 	padding-top: 50px;
 	}
 .itinerary{
+	background-color: white;
 	display: inline-block;
 	float: left;
 	padding: 0px 20px 20px 20px;
@@ -35,6 +37,7 @@ div#header-right{
 	width: 62.5%;
 	}
 div.info{
+	background-color: white;
 	float: left;
 	clear: left;
 	width: 60%;
@@ -68,6 +71,7 @@ div.info{
 	max-height:100%;
 	}
 div.sidebar{
+	background-color: white;
 	float: right;
 	padding: 0px 20px 20px 20px;
 	border: 2px solid black;
@@ -96,6 +100,7 @@ div#sidepic3{
 	max-height:100%;
 	}
 footer{
+	background-color: #f09314;
 	text-align: center;
 	padding: 15px;
 	border: 2px solid black;
