@@ -35,16 +35,16 @@ http.createServer(function (req, res){
 
 console.log("Server has started. port:"+config.port);
 
-//formidable doesn't seem to function properly with GET requests
-
-/*function displayForm(req, res){
+function displayForm(req, res){
 
 	if (url.parse(req.url).pathname === '/destinations/barbados.JSON'){ jsonFile = 'destinations/barbados.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelona.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpur.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nyc.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/info.JSON'){ jsonFile = 'destinations/info.JSON'; }
 	
-}*/
+	
+}
 
 function processFormFieldsIndividual(req, res) {
 	
@@ -53,6 +53,7 @@ function processFormFieldsIndividual(req, res) {
 	else if(url.parse(req.url).pathname === '/destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelona.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpur.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nyc.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/info.JSON'){ jsonFile = 'destinations/info.JSON'; }
 	
 	//console.log(url.parse(req.url).pathname);
 	
@@ -61,12 +62,17 @@ function processFormFieldsIndividual(req, res) {
     var b;
     var form = new formidable.IncomingForm();
     form.on('field', function (field, value){
+    	if (value === ''){
+    		console.log("attempt to insert blank field. Not submitted.");
+    		return; 
+    	}
         console.log(field);
-        if (field == 'managerreview'){ //in case of a manager's comment, it will write to the file containing manager's comments instead
+        if (field == 'managerreview'){
         	if (jsonFile === 'destinations/barbados.JSON'){ jsonFile = 'destinations/barbadosResponses.JSON'; }
         	else if(jsonFile === 'destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelonaResponses.JSON'; }
         	else if(jsonFile === 'destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpurResponses.JSON'; }
         	else if(jsonFile === 'destinations/nyc.JSON'){ jsonFile = 'destinations/nycResponses.JSON'; }
+        	
         }else if (field === 'commentToDelete'){
         	fs.readFile(jsonFile, 'utf8', function read(err, data) {
                 if (err) {
@@ -76,8 +82,8 @@ function processFormFieldsIndividual(req, res) {
             	for (var i=0; i<reviews.length; i++){
             		var review = reviews[i];
             		if (review === null){ review = reviews[i+1]; return;}
-            		if (review.title === value){ //if the title of the comment is parsed as a value
-            			reviews[i] = ""; //that comment will be converted to "". See testing.js line 86 for how this is handled.
+            		if (review.title === value){
+            			reviews[i] = "";
             			content = JSON.stringify(reviews);
             			fs.writeFile(jsonFile, content, function(err){
             	        	if(err) throw err;
@@ -97,13 +103,17 @@ function processFormFieldsIndividual(req, res) {
                 if (err) {
                     throw err;
                 }
+                var content = data;
+                content = content.replace('[','');
+                content = content.replace(']','');
+                //content = content.replace('},','}');
                 var reviews = JSON.parse(data);
             	for (var i=0; i<reviews.length; i++){
             		var review = reviews[i];
             		console.log(review);
             		if (review === null){ review = reviews[i+1]; return;}
-            		if (review.managerreview === value){ //if the title of the response is parsed as a value
-            			reviews[i] = ""; //that response will be converted to "". See testing.js line 135 for how this is handled.
+            		if (review.managerreview === value){
+            			reviews[i] = "";
             			content = JSON.stringify(reviews);
             			fs.writeFile(jsonFile, content, function(err){
             	        	if(err) throw err;
@@ -114,6 +124,12 @@ function processFormFieldsIndividual(req, res) {
         	});
         	return;
         }
+        
+        else if (field === 'full-name'){
+        	jsonFile = 'destinations/info.JSON';
+        	
+        }
+        
         console.log(value);
         fields[field] = value;
     });

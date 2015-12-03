@@ -21,8 +21,11 @@ window.onload = function(){
 		url = "kualalumpur.JSON";
 	}else if (window.location.pathname == "/destinations/nyc.html"){
 		url = "nyc.JSON";
+	}else if (window.location.pathname == "/destinations/info.html"){
+		url = "info.JSON";
 	}
 	var request = new XMLHttpRequest();
+	//var secondRequest = new XMLHttpRequest();
 
 	request.onload = function(){
 		if (request.status == 200){
@@ -30,13 +33,33 @@ window.onload = function(){
 		}
 	};
 	
+	/*secondRequest.onload = function(){
+		if (request.status == 200){
+			postResponse(request.responseText);
+		}
+	};*/
+	
 	request.open("GET", url);
 	request.send(null);
 	
+	/*secondRequest.open("GET", url);
+	secondRequest.send(null);*/
 }
 
 function postComment(responseText){
 	
+	if(window.location.pathname == "/destinations/info.html"){
+		
+		var newForm = document.getElementById("newForm");
+		var infoFields = JSON.parse(responseText);
+		for (var i=0; i<infoFields.length; i++){
+			var bookedTrip = infoFields[i];
+			var place = document.createElement("div");
+			place.innerHTML = "<p>" + bookedTrip.fullname + " from " + bookedTrip.city + ", " + bookedTrip.country + " has booked for a trip on Great Escapes. </p>";
+			newForm.insertBefore(place, newForm.firstChild);
+		}
+	}
+	else{	
 	var today = new Date();
 	var dd = today.getDate();
 	var mm = today.getMonth()+1;
@@ -74,8 +97,8 @@ function postComment(responseText){
 	var reviews = JSON.parse(responseText);
 	for (var i=0; i<reviews.length; i++){
 		var review = reviews[i];
-		while (review == ""){ //if a review is "", move to the next review. If the most recent review is "", the manager comments
-			review = reviews[i+1]; //will not be loaded into the page. Posting a new traveller's comment fixes this.
+		while (review == ""){
+			review = reviews[i+1];
 			i++;
 		}
 		if (review.managerreview != undefined){ break; }
@@ -94,6 +117,8 @@ function postComment(responseText){
 		var rev = review;
 		var key = "review_" + review.title;
 		
+		div.innerHTML += "<form action='' method='GET'><input type='submit' id='" + key + "' value='Delete'></form>";
+		
 		newReviews.insertBefore(div, newReviews.firstChild);
 		
 		initMap();
@@ -106,8 +131,11 @@ function postComment(responseText){
 		url = "kualalumpurResponses.JSON";
 	}else if (window.location.pathname == "/destinations/nyc.html"){
 		url = "nycResponses.JSON";
+	}else if (window.location.pathname == "/destinations/info.html"){
+		url = "info.JSON";
 	}
 	var request = new XMLHttpRequest();
+	//var secondRequest = new XMLHttpRequest();
 
 	request.onload = function(){
 		if (request.status == 200){
@@ -116,13 +144,14 @@ function postComment(responseText){
 	};
 	request.open("GET", url);
 	request.send(null);
+	}
 }
 function postResponse(responseText){
 	var newResponses = document.getElementById("reviews");
 	var responses = JSON.parse(responseText);
 	for (var i=0; i<responses.length; i++){
 		var response = responses[i];
-		while (response == ""){ //if a response is "", move to the next response.
+		while (response == ""){
 			response = responses[i+1];
 			i++;
 		}
@@ -135,13 +164,18 @@ function postResponse(responseText){
 		var resp = response;
 		var key = "response_" + response.managerreview;
 	
+		div.innerHTML += "<form><input type='button' id='" + key + "' onclick='handleDeleteManager(this.id, " + JSON.stringify(resp) + ");' value='Delete'></form>";	
 		newResponses.insertBefore(div, newResponses.firstChild);
 		
 		initMap();
 	}
 }
 
-function initMap(){ //displays all maps to the current location. We had trouble obtaining our location server-side.
+function displayBooked(){
+	alert("Your trip has been booked with Great Escapes!");
+}
+
+function initMap(){
 	  var map = new google.maps.Map(document.getElementById('map'), {
 	    center: {lat: 43.652414, lng: -79.379260},
 	    zoom: 13

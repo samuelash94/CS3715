@@ -16,7 +16,7 @@
 <script type="text/javascript" src="./testing.js"></script>
 <div class="container">
 	<div class="row">
-		 <form class="form-horizontal">
+		 <form class="form-horizontal" action="" method="POST" enctype="application/x-www-form-urlencoded" >
             <fieldset>
                 <!-- Address form -->
          
@@ -26,7 +26,7 @@
                 <div class="control-group">
                     <label class="control-label">Full Name</label>
                     <div class="controls">
-                        <input id="full-name" name="full-name" type="text" placeholder="full name"
+                        <input id="fullname" name="fullname" type="text" placeholder="full name"
                         class="input-xlarge">
                         <p class="help-block"></p>
                     </div>
@@ -39,7 +39,7 @@
                         class="input-xlarge">
                     </div>
                 </div>
-                
+                <br>
                 <!-- city input-->
                 <div class="control-group">
                     <label class="control-label">City / Town</label>
@@ -61,7 +61,7 @@
                 <div class="control-group">
                     <label class="control-label">Zip / Postal Code</label>
                     <div class="controls">
-                        <input id="postal-code" name="postal-code" type="text" placeholder="zip or postal code"
+                        <input id="postalcode" name="postalcode" type="text" placeholder="zip or postal code"
                         class="input-xlarge">
                         <p class="help-block"></p>
                     </div>
@@ -312,12 +312,19 @@
                             <option value="ZM">Zambia</option>
                             <option value="ZW">Zimbabwe</option>
                         </select>
-                        <INPUT type="submit" value="Send"> <INPUT type="reset">
+                        <br><br>
+                        <INPUT type="submit" value="Send" onclick="displayBooked();"> <INPUT type="reset">
                     </div>
                 </div>
             </fieldset>
         </form>
 	</div>
 </div>
+<div id = "identity"> </div> 
+<div id = "newForm"> </div> 
+<footer><p>Contact: service@greatescapes.com. Copyright 2015 Great Escapes Ltd. All rights reserved.</p>
+<br>
+<p><a href="../index.html">Back to Homepage</a></p>
+</footer>
 </body>
 </html>
