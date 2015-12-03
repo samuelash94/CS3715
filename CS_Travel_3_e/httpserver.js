@@ -36,7 +36,7 @@ http.createServer(function (req, res){
 	//req.setEncoding('utf8');
 	processRequestRoute(req, res);
     if (req.method.toLowerCase() == 'get') {
-        //displayForm(req, res);
+        displayForm(req, res);
     	//processAllFieldsOfTheForm(req, res);
     } else if (req.method.toLowerCase() == 'post') {
         //processAllFieldsOfTheForm(req, res);
@@ -48,79 +48,14 @@ http.createServer(function (req, res){
 console.log("Server has started. port:"+config.port);
 
 function displayForm(req, res){
-    /*fs.readFile('index.html', function (err, data) {
-        /*res.writeHead(200, {
-            'Content-Type': 'text/html',
-                'Content-Length': data.length
-        });
-        res.write(data);
-        res.end();
-    });*/
-	//res.writeHead(200, {"Content-Type": "text/html"});
-	var errorMessage = null;
-	if (url.parse(req.url).pathname === '/destinations/barbados.JSON'){ jsonFile = 'destinations/barbadosResponses.JSON'; }
-	else if(url.parse(req.url).pathname === '/destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelonaResponses.JSON'; }
-	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpurResponses.JSON'; }
-	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nycResponses.JSON'; }
-	//console.log(jsonFile);
+
+	if (url.parse(req.url).pathname === '/destinations/barbados.JSON'){ jsonFile = 'destinations/barbados.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelona.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpur.JSON'; }
+	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nyc.JSON'; }
 	
-    //Store the data from the fields in your data store.
-    //The data store could be a file or database or any other store based
-    //on your application.
-    var fields = {};
-    var a;
-    var b;
-    var form = new formidable.IncomingForm();
-    /*fs.appendFile("test.JSON", "}]", function(err){
-        	if(err) throw err;
-        });*/
-    form.on('field', function (field, value) {
-        console.log(field);
-        console.log(value);
-        fields[field] = value;
-        /*fs.appendFile("test.JSON", "\"" + field + "\":\"" + value + "\",", function(err){
-        	if(err) throw err;
-        */
-    });
-    /*fs.appendFile("test.JSON", "[{", function(err){
-    	if(err) throw err;
-    });*/
-
-    form.on('end', function () {
-        a = JSON.stringify(fields);
-        if (a == "{}"){
-    		console.log("fields is blank");
-    		return;
-    	}
-        //var query = qs.parse(a);
-        console.log(a);
-     // Take the JSON file, make it into an object, and then change the object and write the file.
-     fs.readFile(jsonFile, 'utf8', function read(err, data) {
-         if (err) {
-             throw err;
-         }
-         var content = data;
-
-         console.log(content);
-         content = content.replace('[','');
-         content = content.replace(']','');
-         console.log(content);
-         content += ",\n" + a;
-      	 content = "[" + content + "]";
-      	 console.log(content);
-      	 b = content;
-      	 console.log(b);
-      	 fs.writeFile(jsonFile, b, function(err){
-        	if(err) throw err;
-        });
-
-     });
-     //res.end();
-    });
-    if (a != "{}"){ form.parse(req); }
+	
 }
-
-//router URL
 
 function processAllFieldsOfTheForm(req, res) {
     var form = new formidable.IncomingForm();
@@ -135,13 +70,11 @@ function processAllFieldsOfTheForm(req, res) {
 
 function processFormFieldsIndividual(req, res) {
 	
-	//res.writeHead(200, {"Content-Type": "text/html"});
 	var errorMessage = null;
 	if (url.parse(req.url).pathname === '/destinations/barbados.JSON'){ jsonFile = 'destinations/barbados.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelona.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpur.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nyc.JSON'; }
-	//console.log(jsonFile);
 	
 	console.log(url.parse(req.url).pathname);
     //Store the data from the fields in your data store.
@@ -151,26 +84,67 @@ function processFormFieldsIndividual(req, res) {
     var a;
     var b;
     var form = new formidable.IncomingForm();
-    /*fs.appendFile("test.JSON", "}]", function(err){
-        	if(err) throw err;
-        });*/
-    form.on('field', function (field, value) {
+    form.on('field', function (field, value){
         console.log(field);
         if (field == 'managerreview'){
         	if (jsonFile === 'destinations/barbados.JSON'){ jsonFile = 'destinations/barbadosResponses.JSON'; }
         	else if(jsonFile === 'destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelonaResponses.JSON'; }
         	else if(jsonFile === 'destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpurResponses.JSON'; }
         	else if(jsonFile === 'destinations/nyc.JSON'){ jsonFile = 'destinations/nycResponses.JSON'; }
+        }else if (field === 'commentToDelete'){
+        	fs.readFile(jsonFile, 'utf8', function read(err, data) {
+                if (err) {
+                    throw err;
+                }
+                var reviews = JSON.parse(data);
+            	for (var i=0; i<reviews.length; i++){
+            		var review = reviews[i];
+            		if (review === null){ review = reviews[i+1]; return;}
+            		if (review.title === value){
+            			reviews[i] = "";
+            			content = JSON.stringify(reviews);
+            			fs.writeFile(jsonFile, content, function(err){
+            	        	if(err) throw err;
+            	        });
+            			return;
+            		}
+            	}
+        	});
+        	return;
+        }else if (field === 'responseToDelete'){
+        	console.log("is it here?" + jsonFile);
+        	if (jsonFile === 'destinations/barbados.JSON'){ jsonFile = 'destinations/barbadosResponses.JSON'; }
+        	else if(jsonFile === 'destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelonaResponses.JSON'; }
+        	else if(jsonFile === 'destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpurResponses.JSON'; }
+        	else if(jsonFile === 'destinations/nyc.JSON'){ jsonFile = 'destinations/nycResponses.JSON'; }
+        	fs.readFile(jsonFile, 'utf8', function read(err, data) {
+                if (err) {
+                    throw err;
+                }
+                var content = data;
+                content = content.replace('[','');
+                content = content.replace(']','');
+                //content = content.replace('},','}');
+                var reviews = JSON.parse(data);
+            	for (var i=0; i<reviews.length; i++){
+            		var review = reviews[i];
+            		console.log(review);
+            		if (review === null){ review = reviews[i+1]; return;}
+            		if (review.managerreview === value){
+            			reviews[i] = "";
+            			content = JSON.stringify(reviews);
+            			fs.writeFile(jsonFile, content, function(err){
+            	        	if(err) throw err;
+            	        });
+            			return;
+            		}
+            	}
+        	});
+        	return;
         }
         console.log(value);
         fields[field] = value;
-        /*fs.appendFile("test.JSON", "\"" + field + "\":\"" + value + "\",", function(err){
-        	if(err) throw err;
-        */
     });
-    /*fs.appendFile("test.JSON", "[{", function(err){
-    	if(err) throw err;
-    });*/
 
     form.on('end', function () {
         a = JSON.stringify(fields);

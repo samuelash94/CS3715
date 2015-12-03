@@ -205,7 +205,7 @@ little in the way of entertainment out there, think Comiskey Park not Wrigley Fi
 </div>
 
 <div class="newreview">
-<h2>Leave a comment below</h2>
+<h2>Leave a comment above</h2>
 <select name="identity" id="identity">
 <option value="inputtype0">I am a...</option>
 <option value="inputtype1">Traveller</option>
@@ -235,7 +235,21 @@ little in the way of entertainment out there, think Comiskey Park not Wrigley Fi
 </fieldset>
 </form></div>
 <br><br>
-<input type="button" id="clearlocal" onclick="clearLocalStorage();" value="Clear All Comments"></div>
+
+<form action="" method="POST" enctype="application/x-www-form-urlencoded">
+<fieldset>
+<input type="text" name="commentToDelete" id="commentToDelete" placeholder="Delete a comment"><br><br>
+<input type="submit" id="delete" value="Delete">
+</fieldset><br><br>
+</form>
+
+<form action="" method="POST" enctype="application/x-www-form-urlencoded">
+<fieldset>
+<input type="text" name="responseToDelete" id="responseToDelete" placeholder="Delete a response"><br><br>
+<input type="submit" id="delete" value="Delete">
+</fieldset>
+</form>
+</div>
 </span>
 
 <div id="deletedcomments"></div>

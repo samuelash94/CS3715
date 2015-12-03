@@ -12,12 +12,13 @@ img{
 	max-width: 500px;
 	}
 a{
-	color: orangered;
+	color: #98ff98;
 	}
 a:visited {
 	color: yellow;
 	}
 header{
+	background-color: #f09314;
 	display: inline-block;
 	padding: 0px 20px 20px 20px; 
 	border: 2px solid black;
@@ -49,6 +50,7 @@ div#header-pic1{
 	padding: 10px;
 	}
 div.desc{
+	background-color: white;
 	padding: 0px 20px 20px 20px;
 	margin-bottom: 10px;
 	float: right;
@@ -57,6 +59,7 @@ div.desc{
 	border: 2px solid black;		
 	}
 div.dates{
+	background-color: white;
 	margin-bottom: 10px;
 	padding: 0px 20px 20px 20px;
 	float: left;
@@ -87,6 +90,7 @@ div.dateRight{
 	width: 45%;
 	}
 div.tour{
+	background-color: white;
 	float: left;
 	clear: left;
 	padding: 0px 20px 20px 20px;
@@ -95,6 +99,7 @@ div.tour{
 	border: 2px solid black;
 	}
 div.services{
+	background-color: white;
 	padding: 0px 20px 20px 20px;
 	margin-top: 10px;
 	border: 2px solid black;
@@ -105,12 +110,14 @@ div.rightside{
 	width: 30%;
 	}
 div.summary{
+	background-color: white;
 	padding: 0px 20px 20px 20px;
 	margin-bottom: 10px;
 	clear: right;
 	border: 2px solid black;
 	}
 .reviewarea{
+	background-color: white;
 	padding: 0px 20px 20px 20px;
 	display: inline-block;
 	border: 2px solid black;
@@ -121,17 +128,15 @@ div#reviews{
 	display: block;
 	float: left;
 	}
-div.reviewandresponse{
-	display: block;
-	margin: auto;
-	padding-bottom: 80px;
-	}
+}
 div.review{
+	display: block;
 	float: left;
 	width: 50%;
 	clear: left;
 	}
 div.response{
+	display: block;
 	float: right;
 	width: 40%;
 	padding-top: 100px;
@@ -160,6 +165,7 @@ div#deletedcomments{
 	width: 300px;
 	}
 footer{
+	background-color: #f09314;
 	text-align: center;
 	padding: 15px;
 	border: 2px solid black;

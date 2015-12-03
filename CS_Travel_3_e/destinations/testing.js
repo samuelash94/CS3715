@@ -1,5 +1,5 @@
 window.onload = function(){
-
+	var type = "";
 	document.getElementById('identity').onchange = function() {
     	var i = 1;
     	var myDiv = document.getElementById("inputtype" + i);
@@ -8,6 +8,7 @@ window.onload = function(){
         	myDiv = document.getElementById("inputtype" + ++i);
     	}
     	document.getElementById(this.value).style.display = 'block';
+    	type = this.value;
     	var button1 = document.getElementById("button1");
     	var button2 = document.getElementById("button2");
 	}
@@ -22,6 +23,7 @@ window.onload = function(){
 		url = "nyc.JSON";
 	}
 	var request = new XMLHttpRequest();
+	//var secondRequest = new XMLHttpRequest();
 
 	request.onload = function(){
 		if (request.status == 200){
@@ -29,8 +31,17 @@ window.onload = function(){
 		}
 	};
 	
+	/*secondRequest.onload = function(){
+		if (request.status == 200){
+			postResponse(request.responseText);
+		}
+	};*/
+	
 	request.open("GET", url);
 	request.send(null);
+	
+	/*secondRequest.open("GET", url);
+	secondRequest.send(null);*/
 }
 
 function postComment(responseText){
@@ -72,6 +83,11 @@ function postComment(responseText){
 	var reviews = JSON.parse(responseText);
 	for (var i=0; i<reviews.length; i++){
 		var review = reviews[i];
+		while (review == ""){
+			review = reviews[i+1];
+			i++;
+		}
+		if (review.managerreview != undefined){ break; }
 		var div = document.createElement("div");
 		div.setAttribute("class", "review");
 		div.innerHTML = "<b><p><q>" + review.title + "</b></p></q>";
@@ -84,12 +100,55 @@ function postComment(responseText){
 		
 		div.innerHTML += "<div id='map'></div>";
 		
-		var rev = window.review;
-		var key = "review_";
+		var rev = review;
+		var key = "review_" + review.title;
 		
-		div.innerHTML += "<form><input type='button' id='" + key + "' onclick='handleDeleteTraveller(this.id, " + JSON.stringify(rev) + ");' value='Delete'></form>";
+		div.innerHTML += "<form action='' method='GET'><input type='submit' id='" + key + "' value='Delete'></form>";
 		
 		newReviews.insertBefore(div, newReviews.firstChild);
+		
+		initMap();
+	}
+	if (window.location.pathname == "/destinations/barbados.html"){
+		url = "barbadosResponses.JSON";
+	}else if (window.location.pathname == "/destinations/barcelona.html"){
+		url = "barcelonaResponses.JSON";
+	}else if (window.location.pathname == "/destinations/kualalumpur.html"){
+		url = "kualalumpurResponses.JSON";
+	}else if (window.location.pathname == "/destinations/nyc.html"){
+		url = "nycResponses.JSON";
+	}
+	var request = new XMLHttpRequest();
+	//var secondRequest = new XMLHttpRequest();
+
+	request.onload = function(){
+		if (request.status == 200){
+			postResponse(request.responseText);
+		}
+	};
+	request.open("GET", url);
+	request.send(null);
+}
+function postResponse(responseText){
+	var newResponses = document.getElementById("reviews");
+	var responses = JSON.parse(responseText);
+	for (var i=0; i<responses.length; i++){
+		var response = responses[i];
+		while (response == ""){
+			response = responses[i+1];
+			i++;
+		}
+		var div = document.createElement("div");
+		div.setAttribute("class", "response");
+		div.innerHTML = "<p><em>" + response.managerreview + "</em> -Great Escapes Crew</p>";
+	
+		div.innerHTML += "<div id='map'></div>";
+	
+		var resp = response;
+		var key = "response_" + response.managerreview;
+	
+		div.innerHTML += "<form><input type='button' id='" + key + "' onclick='handleDeleteManager(this.id, " + JSON.stringify(resp) + ");' value='Delete'></form>";	
+		newResponses.insertBefore(div, newResponses.firstChild);
 		
 		initMap();
 	}
@@ -121,8 +180,8 @@ function initMap(){
 	    // Browser doesn't support Geolocation
 	    handleLocationError(false, marker, map.getCenter());
 	  }
-	}
+}
 
-	function handleLocationError(browserHasGeolocation, marker, pos) {
+function handleLocationError(browserHasGeolocation, marker, pos) {
 	  marker.setPosition(pos);
-	}
+}
