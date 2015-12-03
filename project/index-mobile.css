@@ -10,7 +10,7 @@ a{
 	color: #98ff98;
 	}
 a:visited {
-	color: yellow;
+	color: pink;
 	}
 header{
 	display: inline-block;
@@ -27,8 +27,9 @@ div#header-right{
 	padding-top: 50px;
 	}
 .itinerary{
-	display: inline-block;
-	float: left;
+	
+	display: pink;
+float:left;
 	padding: 0px 20px 20px 20px; 
 	border: 2px solid black;
 	margin-bottom: 20px;
@@ -40,11 +41,12 @@ div.info{
 	width: 60%;
 	}
 div.sidebar{
-	float: right;
-	padding: 0px 20px 20px 20px;
-	border: 2px solid black;
-	margin: auto;
-	width: 40%;
+	 font-size: 150%;
+
+    right: 0px;
+    width: 48%;
+    border:3px solid #73AD21;
+    padding: 10px;
 	}
 #barbadospic{
 	content:url(thumbnails/barbados.jpg);
@@ -100,10 +102,16 @@ div#sidepic3{
 	}
 footer{
 	text-align: center;
-	padding: 15px;
+
 	border: 2px solid black;
 	margin: auto;
 	clear: left;
+	float:left;
+		padding: 0px 20px 20px 20px; 
+
+	margin-bottom: 20px;
+	width: 45%;
+
 	}
 img{
 	height: auto; 
