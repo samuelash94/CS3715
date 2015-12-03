@@ -4,13 +4,14 @@ html{
 	margin-right: 10%;
 	border: 4px solid black;
 	padding: 10px 10px 10px 10px;
-	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-family: Times New Roman, "Helvetica Neue", Helvetica, sans-serif;
+	font-size:150%;
 	}
 a{
-	color: #98ff98;
+	color: red;
 	}
 a:visited {
-	color: pink;
+	color: #408080;
 	}
 header{
 	display: inline-block;
@@ -19,7 +20,7 @@ header{
 	}
 div#header-left{
 	float: left;
-	width: 70%;		
+	width: 100%;		
 	}
 div#header-right{
 	float: right;
@@ -27,60 +28,60 @@ div#header-right{
 	padding-top: 50px;
 	}
 .itinerary{
-	
+	width:92%;
 	display: pink;
 float:left;
-	padding: 0px 20px 20px 20px; 
+	padding: 0px 20px 20px 40px; 
 	border: 2px solid black;
 	margin-bottom: 20px;
-	width: 45%;
+
 	}
 div.info{
+		font-size:150%;
 	float: left;
 	clear: left;
-	width: 60%;
+	width: 92%;
 	}
 div.sidebar{
-	 font-size: 150%;
+
 
     right: 0px;
-    width: 48%;
-    border:3px solid #73AD21;
-    padding: 10px;
+    border:3px solid black;
+    padding-left: 40px;
 	}
 #barbadospic{
 	content:url(thumbnails/barbados.jpg);
 	display: block;
 	height: auto;
-	max-width:100%;
+		width:650px;
 	max-height:100%;
 	}
 #barcelonapic{
 	content:url(thumbnails/barcelona2.jpg);
 	display: block;
 	height: auto;
-	max-width:100%;
+		width:650px;
 	max-height:100%;
 	}
 #klpic{
 	content:url(thumbnails/kualalumpur.jpg);
 	display: block;
 	height: auto;
-	max-width:100%;
+	width:650px;
 	max-height:100%;
 	}
 #nycpic{
 	content:url(thumbnails/nyc2.jpg);
 	display: block;
 	height: auto;
-	max-width:100%;
+		width:650px;
 	max-height:100%;
 	}
 div#sidepic1{
 	content:url(thumbnails/barbados2.jpg);
 	display: block;
 	height: auto;
-	max-width:100%;
+	width:650px;
 	max-height:100%;
 	overflow: auto;
 	}
@@ -88,7 +89,7 @@ div#sidepic2{
 	content:url(thumbnails/kualalumpur2.jpg);
 	display: block;
 	height: auto;
-	max-width:100%;
+	width:650px;
 	max-height:100%;
 	overflow: auto;
 	}
@@ -96,7 +97,7 @@ div#sidepic3{
 	content:url(images/new-york-city-statue-of-liberty2.jpg);
 	display: block;
 	height: auto;
-	max-width:100%;
+width:650px;
 	max-height:100%;
 	overflow: auto;
 	}
@@ -110,12 +111,12 @@ footer{
 		padding: 0px 20px 20px 20px; 
 
 	margin-bottom: 20px;
-	width: 45%;
-
+	width: 94%;
+	font-size:120%;
 	}
 img{
 	height: auto; 
-    	width: auto;
+    	width: 100%;
 	max-width: 80%;
 	max-height: 80%;
 	}
