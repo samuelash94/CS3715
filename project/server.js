@@ -35,15 +35,16 @@ http.createServer(function (req, res){
 
 console.log("Server has started. port:"+config.port);
 
-function displayForm(req, res){
+//formidable doesn't seem to function properly with GET requests
+
+/*function displayForm(req, res){
 
 	if (url.parse(req.url).pathname === '/destinations/barbados.JSON'){ jsonFile = 'destinations/barbados.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelona.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpur.JSON'; }
 	else if(url.parse(req.url).pathname === '/destinations/nyc.JSON'){ jsonFile = 'destinations/nyc.JSON'; }
 	
-	
-}
+}*/
 
 function processFormFieldsIndividual(req, res) {
 	
@@ -61,7 +62,7 @@ function processFormFieldsIndividual(req, res) {
     var form = new formidable.IncomingForm();
     form.on('field', function (field, value){
         console.log(field);
-        if (field == 'managerreview'){
+        if (field == 'managerreview'){ //in case of a manager's comment, it will write to the file containing manager's comments instead
         	if (jsonFile === 'destinations/barbados.JSON'){ jsonFile = 'destinations/barbadosResponses.JSON'; }
         	else if(jsonFile === 'destinations/barcelona.JSON'){ jsonFile = 'destinations/barcelonaResponses.JSON'; }
         	else if(jsonFile === 'destinations/kualalumpur.JSON'){ jsonFile = 'destinations/kualalumpurResponses.JSON'; }
@@ -75,8 +76,8 @@ function processFormFieldsIndividual(req, res) {
             	for (var i=0; i<reviews.length; i++){
             		var review = reviews[i];
             		if (review === null){ review = reviews[i+1]; return;}
-            		if (review.title === value){
-            			reviews[i] = "";
+            		if (review.title === value){ //if the title of the comment is parsed as a value
+            			reviews[i] = ""; //that comment will be converted to "". See testing.js line 86 for how this is handled.
             			content = JSON.stringify(reviews);
             			fs.writeFile(jsonFile, content, function(err){
             	        	if(err) throw err;
@@ -96,17 +97,13 @@ function processFormFieldsIndividual(req, res) {
                 if (err) {
                     throw err;
                 }
-                var content = data;
-                content = content.replace('[','');
-                content = content.replace(']','');
-                //content = content.replace('},','}');
                 var reviews = JSON.parse(data);
             	for (var i=0; i<reviews.length; i++){
             		var review = reviews[i];
             		console.log(review);
             		if (review === null){ review = reviews[i+1]; return;}
-            		if (review.managerreview === value){
-            			reviews[i] = "";
+            		if (review.managerreview === value){ //if the title of the response is parsed as a value
+            			reviews[i] = ""; //that response will be converted to "". See testing.js line 135 for how this is handled.
             			content = JSON.stringify(reviews);
             			fs.writeFile(jsonFile, content, function(err){
             	        	if(err) throw err;

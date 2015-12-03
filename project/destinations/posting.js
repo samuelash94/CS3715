@@ -23,7 +23,6 @@ window.onload = function(){
 		url = "nyc.JSON";
 	}
 	var request = new XMLHttpRequest();
-	//var secondRequest = new XMLHttpRequest();
 
 	request.onload = function(){
 		if (request.status == 200){
@@ -31,17 +30,9 @@ window.onload = function(){
 		}
 	};
 	
-	/*secondRequest.onload = function(){
-		if (request.status == 200){
-			postResponse(request.responseText);
-		}
-	};*/
-	
 	request.open("GET", url);
 	request.send(null);
 	
-	/*secondRequest.open("GET", url);
-	secondRequest.send(null);*/
 }
 
 function postComment(responseText){
@@ -83,8 +74,8 @@ function postComment(responseText){
 	var reviews = JSON.parse(responseText);
 	for (var i=0; i<reviews.length; i++){
 		var review = reviews[i];
-		while (review == ""){
-			review = reviews[i+1];
+		while (review == ""){ //if a review is "", move to the next review. If the most recent review is "", the manager comments
+			review = reviews[i+1]; //will not be loaded into the page. Posting a new traveller's comment fixes this.
 			i++;
 		}
 		if (review.managerreview != undefined){ break; }
@@ -103,8 +94,6 @@ function postComment(responseText){
 		var rev = review;
 		var key = "review_" + review.title;
 		
-		div.innerHTML += "<form action='' method='GET'><input type='submit' id='" + key + "' value='Delete'></form>";
-		
 		newReviews.insertBefore(div, newReviews.firstChild);
 		
 		initMap();
@@ -119,7 +108,6 @@ function postComment(responseText){
 		url = "nycResponses.JSON";
 	}
 	var request = new XMLHttpRequest();
-	//var secondRequest = new XMLHttpRequest();
 
 	request.onload = function(){
 		if (request.status == 200){
@@ -134,7 +122,7 @@ function postResponse(responseText){
 	var responses = JSON.parse(responseText);
 	for (var i=0; i<responses.length; i++){
 		var response = responses[i];
-		while (response == ""){
+		while (response == ""){ //if a response is "", move to the next response.
 			response = responses[i+1];
 			i++;
 		}
@@ -147,14 +135,13 @@ function postResponse(responseText){
 		var resp = response;
 		var key = "response_" + response.managerreview;
 	
-		div.innerHTML += "<form><input type='button' id='" + key + "' onclick='handleDeleteManager(this.id, " + JSON.stringify(resp) + ");' value='Delete'></form>";	
 		newResponses.insertBefore(div, newResponses.firstChild);
 		
 		initMap();
 	}
 }
 
-function initMap(){
+function initMap(){ //displays all maps to the current location. We had trouble obtaining our location server-side.
 	  var map = new google.maps.Map(document.getElementById('map'), {
 	    center: {lat: 43.652414, lng: -79.379260},
 	    zoom: 13
